@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
 
     private bool m_OnJump = false;
 
+    private void Start() 
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     public void Move(Vector2 movement)
     {
         m_IsGrounded = m_CharacterController.isGrounded;
