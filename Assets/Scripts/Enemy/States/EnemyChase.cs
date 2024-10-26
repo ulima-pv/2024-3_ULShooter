@@ -24,7 +24,7 @@ public class EnemyChase : EnemyState
 
     public override void OnFinish()
     {
-        Debug.Log("Chase: OnFinish");
+        Debug.Log($"Chase: OnFinish { m_Controller.GetDistanceToChase() }");
     }
 
     public override void OnStart()
