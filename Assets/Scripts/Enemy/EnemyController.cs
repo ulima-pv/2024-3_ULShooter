@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private EnemyIdle m_IdleState;
+    #region Properties
+    [SerializeField]
+    private Transform m_Player;
+    [SerializeField]
+    private float m_DistanceToChase = 6f;
+    #endregion
+
+    #region States
+    public EnemyIdle IdleState;
     public EnemyChase ChaseState{private set; get;}
 
     private EnemyState m_CurrentState; // General
+    #endregion
 
     private void Awake() 
     {
-          m_IdleState = new EnemyIdle(this);
+          IdleState = new EnemyIdle(this);
           ChaseState = new EnemyChase(this);
           //...
-          m_CurrentState = m_IdleState;
+          StartStateMachine();
     }
 
     private void Update() 
@@ -30,5 +39,21 @@ public class EnemyController : MonoBehaviour
             }
         }
         m_CurrentState.OnUpdate();    
+    }
+
+    private void StartStateMachine()
+    {
+        IdleState.OnStart();
+        m_CurrentState = IdleState;
+    }
+
+    public Transform GetPlayer()
+    {
+        return m_Player;
+    }
+
+    public float GetDistanceToChase()
+    {
+        return m_DistanceToChase;
     }
 }

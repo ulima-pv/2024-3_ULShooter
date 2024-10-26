@@ -9,6 +9,7 @@ public abstract class EnemyState
     public EnemyState(EnemyController controller)
     {
         m_Controller = controller;
+        Transitions = new List<Transition>();
     }
 
     public abstract void OnStart();

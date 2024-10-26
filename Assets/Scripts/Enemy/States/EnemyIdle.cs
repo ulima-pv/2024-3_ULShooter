@@ -8,26 +8,31 @@ public class EnemyIdle : EnemyState
     {
         Transition transitionIdleToChase = new Transition(
             isValid: () => {
-                return false;
+                float dist = Vector3.Distance(
+                    m_Controller.GetPlayer().position,
+                    m_Controller.transform.position
+                );
+                
+                return dist < m_Controller.GetDistanceToChase();
             },
             getNextState: () => {
                 return m_Controller.ChaseState;
             }
         );
+
+        Transitions.Add(transitionIdleToChase);
     }
 
     public override void OnFinish()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Idle: OnFinish");
     }
 
     public override void OnStart()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Idle: OnStart");
     }
 
     public override void OnUpdate()
-    {
-        throw new System.NotImplementedException();
-    }
+    {}
 }
