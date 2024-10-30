@@ -34,10 +34,12 @@ public class EnemyChase : EnemyState
 
     public override void OnUpdate()
     {
-        var dir = m_Controller.GetPlayer().position - m_Controller.transform.position;
+        /* var dir = m_Controller.GetPlayer().position - m_Controller.transform.position;
         dir.y = 0f;
         dir.Normalize();
 
-        m_Controller.transform.position += dir * 1f * Time.deltaTime;
+        m_Controller.transform.position += dir * 1f * Time.deltaTime; */
+        m_Controller.GetAgent()
+            .SetDestination(m_Controller.GetPlayer().position);
     }
 }

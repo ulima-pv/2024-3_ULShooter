@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class EnemyController : MonoBehaviour
     private Transform m_Player;
     [SerializeField]
     private float m_DistanceToChase = 6f;
+    [SerializeField]
+    private NavMeshAgent m_Agent;
+    public EnemySO enemyType;
     #endregion
 
     #region States
@@ -20,10 +25,12 @@ public class EnemyController : MonoBehaviour
 
     private void Awake() 
     {
-          IdleState = new EnemyIdle(this);
-          ChaseState = new EnemyChase(this);
-          //...
-          StartStateMachine();
+        m_Agent = GetComponent<NavMeshAgent>();
+
+        IdleState = new EnemyIdle(this);
+        ChaseState = new EnemyChase(this);
+        //...
+        StartStateMachine();
     }
 
     private void Update() 
@@ -55,5 +62,10 @@ public class EnemyController : MonoBehaviour
     public float GetDistanceToChase()
     {
         return m_DistanceToChase;
+    }
+
+    public NavMeshAgent GetAgent()
+    {
+        return m_Agent;
     }
 }
